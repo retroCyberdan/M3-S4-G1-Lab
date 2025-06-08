@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed = 10;
     [SerializeField] Rigidbody2D _rb;
+    private Animator _anim;
 
     float h;
     float v;
@@ -14,19 +15,28 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        h = Input.GetAxis("Horizontal"); // <- acquisisco gli input in Update
-        v = Input.GetAxis("Vertical");
+        
     }
 
     // FixedUpdate is called once per frame
     void FixedUpdate()
     {
-        if (h != 0 || v != 0) // <- gestisco la fisica in FixedUpdate se "h" o "v" variano
+        h = Input.GetAxis("Horizontal"); // <- acquisisco gli input
+        v = Input.GetAxis("Vertical");
+
+        if (_anim != null && (h != 0 || v != 0))
+        {
+            _anim.SetFloat("hDir", h);
+            _anim.SetFloat("vDir", v);
+        }
+        
+        if (_anim != null && (h != 0 || v != 0)) // <- gestisco la fisica in FixedUpdate se "h" o "v" variano
         {
             Vector2 dir = new Vector2(h, v); // <- creo un vettore direzione
 
@@ -42,3 +52,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+

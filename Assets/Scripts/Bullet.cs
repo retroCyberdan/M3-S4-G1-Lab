@@ -6,16 +6,16 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _lifeSpan = 2f;
-    [SerializeField] private AudioClip _deathClipSFX;
-    AudioSource _deathSFX;
+    private Animator _anim;
 
     private void Awake()
     {
-        _deathSFX = GetComponent<AudioSource>(); // <- riferimento alla componente AudioSource
+
     }
 
     void Start()
     {
+        _anim = GetComponent<Animator>();
         Destroy(gameObject, _lifeSpan); // <- distrugge il Proiettile dopo tot secondi che è stato generato
     }
 
@@ -24,10 +24,9 @@ public class Bullet : MonoBehaviour
     {
         if (collision.collider.CompareTag("Enemy"))
         {
+            _anim.SetBool("Death", true);
             Destroy(collision.gameObject); // <- distrugge il Nemico all'impatto
             Destroy(gameObject); // <- distrugge il Proiettile all'impatto
-            _deathSFX.clip = _deathClipSFX; // <- riproduco la clip audio per la morte
-            _deathSFX.Play();
         }
     }
 }
