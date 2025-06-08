@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _speed = 10;
+    [SerializeField] private float _speed = 2;
     [SerializeField] Rigidbody2D _rb;
-    private Animator _anim;
 
-    float h;
-    float v;
+    // Creo le seguenti variabili e le rendo delle properties, in modo tale che posso gestirle dall'esterno
+    // senza correre il rischio di modificarne il valore (posso farlo solo da questa classe)
+    public Vector2 dir { get; private set; }
+
+    public float h { get; private set; }
+    public float v { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -29,16 +31,10 @@ public class PlayerController : MonoBehaviour
     {
         h = Input.GetAxis("Horizontal"); // <- acquisisco gli input
         v = Input.GetAxis("Vertical");
-
-        if (_anim != null && (h != 0 || v != 0))
-        {
-            _anim.SetFloat("hDir", h);
-            _anim.SetFloat("vDir", v);
-        }
         
-        if (_anim != null && (h != 0 || v != 0)) // <- gestisco la fisica in FixedUpdate se "h" o "v" variano
+        if (h != 0 || v != 0) // <- gestisco la fisica in FixedUpdate se "h" o "v" variano
         {
-            Vector2 dir = new Vector2(h, v); // <- creo un vettore direzione
+            dir = new Vector2(h, v); // <- creo un vettore direzione
 
             float length = dir.magnitude; // <- calcolo la sua lunghezza
 

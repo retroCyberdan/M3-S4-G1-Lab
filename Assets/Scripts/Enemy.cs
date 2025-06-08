@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _speed = 2.5f;
+    [SerializeField] private float _speed = 1.5f;
     [SerializeField] private PlayerController _player;
 
     private void Awake()
