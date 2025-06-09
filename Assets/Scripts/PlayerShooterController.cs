@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerShooterController : MonoBehaviour
 {
     [SerializeField] private float _fireRate = 1f;
+    [Range(1f, 7f)]
     [SerializeField] private float _fireRange = 5f;
     [SerializeField] private Bullet _bulletPrefab;
 
@@ -59,9 +60,9 @@ public class PlayerShooterController : MonoBehaviour
             Rigidbody2D bulletRb = bulletClone.GetComponent<Rigidbody2D>(); // <- accedo alla componente Rigidbody2D del mio clone
 
             //bulletRb.AddForce(Vector3.right * 10, ForceMode2D.Impulse); // <- tramite "AddForce()" applico una "schicchera" verso destra, NON SEGUENDO IL TARGET
-            bulletRb.velocity = bulletDirection * 10f; // <- altro modo per muovere il clone, SEGUENDO IL TARGET
+            //bulletRb.velocity = bulletDirection * 10f; // <- altro modo per muovere il clone, SEGUENDO IL TARGET
 
-            //bulletRb.AddForce(bulletDirection * 10f, ForceMode2D.Impulse); // <- tramite "AddForce()" applico una "schicchera" verso destra, SEGUENDO IL TARGET
+            bulletRb.AddForce(bulletDirection * 10f, ForceMode2D.Impulse); // <- tramite "AddForce()" applico una "schicchera" verso destra, SEGUENDO IL TARGET
         }
     }
 }
