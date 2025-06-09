@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float _speed = 10f;
     [SerializeField] private float _lifeSpan = 2f;
-
-    void Awake()
-    {
-
-    }
 
     void Start()
     {
@@ -22,7 +16,8 @@ public class Bullet : MonoBehaviour
     {
         if (collision.collider.CompareTag("Enemy"))
         {
-            Destroy(collision.gameObject); // <- distrugge il Nemico all'impatto
+            collision.collider.GetComponent<EnemyAnimator>().TakeDamage();
+            //Destroy(collision.gameObject); // <- distrugge il Nemico all'impatto
             Destroy(gameObject); // <- distrugge il Proiettile all'impatto
         }
     }

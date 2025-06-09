@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    private Animator _anim;
+    private Animator _animator;
     private PlayerController _playerController;
-    private Bullet _bullet;
 
     // Start is called before the first frame update
     void Start()
     {
-        _anim = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         _playerController = GetComponent<PlayerController>();
-        _bullet = GetComponent<Bullet>();
     }
 
     // Update is called once per frame
@@ -21,10 +19,8 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (_playerController.dir != Vector2.zero)
         {
-            _anim.SetFloat("hDir", _playerController.h);
-            _anim.SetFloat("vDir", _playerController.v);
+            _animator.SetFloat("hDir", _playerController.h);
+            _animator.SetFloat("vDir", _playerController.v);
         }
-
-        
     }
 }

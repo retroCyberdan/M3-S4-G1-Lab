@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _speed = 1.5f;
     [SerializeField] private PlayerController _player;
 
+    // Creo le seguenti variabili e le rendo delle properties, in modo tale che posso gestirle dall'esterno
+    // senza correre il rischio di modificarne il valore (posso farlo solo da questa classe)
+
     private void Awake()
     {
         GameObject player = GameObject.FindWithTag("Player");

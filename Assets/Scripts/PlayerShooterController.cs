@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerShooterController : MonoBehaviour
 {
-    [SerializeField] private float _fireRate;
-    [SerializeField] private float _fireRange;
+    [SerializeField] private float _fireRate = 1f;
+    [SerializeField] private float _fireRange = 5f;
     [SerializeField] private Bullet _bulletPrefab;
 
     private float _nextFireTime = 0f;
@@ -21,7 +21,7 @@ public class PlayerShooterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _nextFireTime -= Time.time;
+        _nextFireTime -= Time.deltaTime;
         if (_nextFireTime <= 0f)
         {
             Shoot();
@@ -33,17 +33,16 @@ public class PlayerShooterController : MonoBehaviour
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject nearestEnemy = null;
-        float startDistance = Mathf.Infinity; // <- setto la distanza minima
+        float startDistance = Mathf.Infinity; // <- setto la distanza minima ad Infinito
 
-        foreach (GameObject enemy in enemies) // <- cerco ogni valore nell'Array di GameObjects "enemies"
+        foreach (GameObject enemy in enemies) // <- cerco ogni valore "enemy" nell'Array di GameObjects "enemies"
         {
-            float distance = Vector2.Distance(enemy.transform.position, transform.position); // <- calcolo la distanza tramite il metodo "Distance"
+            float distance = Vector2.Distance(transform.position, enemy.transform.position); // <- calcolo la distanza tramite il metodo "Distance"
             if (distance < startDistance && distance <= _fireRange)
-                if (distance <= _fireRange)
-                {
-                    startDistance = distance;
-                    nearestEnemy = enemy;
-                }
+            {
+                startDistance = distance;
+                nearestEnemy = enemy;
+            }
         }
         return nearestEnemy;
     }
